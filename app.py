@@ -1,15 +1,25 @@
 from flask import Flask, request, jsonify
 import subprocess
+import os
 
 app = Flask(__name__)
 
 @app.route('/deploy', methods=['POST'])
 def deploy():
     try:
+        # Use the correct path to deploy.sh
+        script_path = os.path.join(os.getcwd(), 'scripts', 'deploy.sh')
+        
+        # Check if the script exists before attempting to execute
+        if not os.path.isfile(script_path):
+            return jsonify({'error': f'Script not found: {script_path}'}), 500
+        
         # Call the deployment script
-        subprocess.check_call(['/scripts/deploy.sh'])
+        subprocess.check_call([script_path])
         return jsonify({'message': 'Deployment triggered successfully'}), 200
     except subprocess.CalledProcessError as e:
+        return jsonify({'error': str(e)}), 500
+    except Exception as e:
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
