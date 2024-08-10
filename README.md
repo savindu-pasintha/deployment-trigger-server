@@ -3,7 +3,7 @@
 
 This repository contains a Flask-based server designed to trigger deployment actions via a POST request to the `/deploy` endpoint. The server is configured to integrate with GitHub Actions to automate deployment tasks whenever code changes are pushed to any branch.
 
-## Repository Structure
+## Repository Structure 
 
 - **`scripts/`**: Contains essential shell scripts for deployment and server setup.
   - **`deploy.sh`**: Executes the deployment tasks. You can write your own scripts run.
