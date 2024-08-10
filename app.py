@@ -6,7 +6,14 @@ app = Flask(__name__)
 
 @app.route('/deploy', methods=['POST'])
 def deploy():
+    data = request.get_json()
+    commit_id = data.get('commit_id')
+    branch = data.get('branch')
+    
     try:
+        # Log the commit ID and branch (optional)
+        app.logger.info(f"Deploying commit: {commit_id} from branch: {branch}")
+        
         # Use the correct path to deploy.sh
         script_path = os.path.join(os.getcwd(), 'scripts', 'deploy.sh')
         
