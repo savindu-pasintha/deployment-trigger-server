@@ -3,7 +3,7 @@ name: Deploy on Push
 on:
   push:
     branches:
-      - main  # Trigger workflow on push to the main branch
+      - "*"  # Trigger workflow on push to the any branch in repo
 
 jobs:
   deploy:
@@ -13,6 +13,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Get commit ID and branch
+      id: vars
+      run: |
+        echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
+        echo "BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
+
     - name: Trigger deployment
       run: |
-        curl -X POST http://35.230.101.155:8969/deploy
+        curl -X POST http://10.138.0.3:8969/deploy \
+          -H "Content-Type: application/json" \
+          -d '{"commit_id": "${{ env.COMMIT_ID }}", "branch": "${{ env.BRANCH_NAME }}"}'
