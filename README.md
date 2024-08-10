@@ -1,4 +1,4 @@
-# Author : savindu pasintha
+# Author: savindu pasintha
 # Deployment Trigger Server
 
 This repository contains a Flask-based server designed to trigger deployment actions via a POST request to the `/deploy` endpoint. The server is configured to integrate with GitHub Actions to automate deployment tasks whenever code changes are pushed to any branch.
