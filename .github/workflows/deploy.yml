@@ -21,6 +21,6 @@ jobs:
 
     - name: Trigger deployment
       run: |
-        curl -X POST http://35.230.101.155:8969/deploy \
+        curl -X POST http://35.230.000.000:8969/deploy \
           -H "Content-Type: application/json" \
           -d '{"commit_id": "${{ env.COMMIT_ID }}", "branch": "${{ env.BRANCH_NAME }}"}'
